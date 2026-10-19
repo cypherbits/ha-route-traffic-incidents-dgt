@@ -1,0 +1,13 @@
+{
+  "domain": "route_traffic",
+  "name": "Route Traffic",
+  "codeowners": ["@openclaw"],
+  "config_flow": true,
+  "dependencies": ["http"],
+  "documentation": "http://192.168.0.57:8888/shared/route-traffic",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "http://192.168.0.57:8888/shared/route-traffic/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

@@ -1,0 +1,84 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Route Traffic",
+        "description": "Vigila las incidencias y cortes de carretera que caen sobre el corredor de una ruta. Usa una entidad como `zone.home` / `device_tracker.movil`, o un par `latitud,longitud`.",
+        "data": {
+          "origin": "Origen",
+          "destination": "Destino"
+        },
+        "data_description": {
+          "origin": "Id de entidad (zone.home, device_tracker.movil) o `lat,lon`",
+          "destination": "Id de entidad (zone.trabajo, zone.mercadona) o `lat,lon`"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Esta ruta ya está configurada."
+    },
+    "error": {
+      "invalid_location": "Usa un id de entidad existente o un par `latitud,longitud`."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opciones de Route Traffic",
+        "data": {
+          "corridor_radius": "Radio del corredor",
+          "update_interval": "Intervalo de actualización",
+          "providers": "Proveedores de incidencias",
+          "routing": "Proveedor de rutas",
+          "osrm_url": "URL del servidor OSRM"
+        },
+        "data_description": {
+          "corridor_radius": "Distancia máxima a la ruta para que una incidencia cuente",
+          "update_interval": "Cada cuánto se revisa el corredor de la ruta",
+          "providers": "Fuentes de incidencias de carretera",
+          "routing": "Servicio usado para calcular la geometría de la ruta",
+          "osrm_url": "Cualquier servidor OSRM; el de demostración público no necesita clave"
+        }
+      }
+    }
+  },
+  "selector": {
+    "providers": {
+      "options": {
+        "dgt": "DGT (España, DATEX II)"
+      }
+    },
+    "routing": {
+      "options": {
+        "osrm": "OSRM (gratis, sin clave API)"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "closures": {
+        "name": "Cortes en la ruta"
+      },
+      "incidents": {
+        "name": "Incidencias en la ruta"
+      },
+      "worst_severity": {
+        "name": "Severidad máxima"
+      },
+      "affected_roads": {
+        "name": "Carreteras afectadas"
+      },
+      "route_distance": {
+        "name": "Distancia de la ruta"
+      },
+      "route_duration": {
+        "name": "Duración de la ruta"
+      }
+    },
+    "binary_sensor": {
+      "route_blocked": {
+        "name": "Ruta cortada"
+      }
+    }
+  }
+}

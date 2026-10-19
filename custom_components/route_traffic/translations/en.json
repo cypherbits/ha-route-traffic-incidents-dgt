@@ -1,0 +1,84 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Route Traffic",
+        "description": "Monitor the road incidents and closures that fall on the corridor of a route. Use an entity such as `zone.home` / `device_tracker.phone`, or a `latitude,longitude` pair.",
+        "data": {
+          "origin": "Origin",
+          "destination": "Destination"
+        },
+        "data_description": {
+          "origin": "Entity id (zone.home, device_tracker.phone) or `lat,lon`",
+          "destination": "Entity id (zone.work, zone.mercadona) or `lat,lon`"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "This route is already configured."
+    },
+    "error": {
+      "invalid_location": "Use an existing entity id or a `latitude,longitude` pair."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Route Traffic options",
+        "data": {
+          "corridor_radius": "Corridor radius",
+          "update_interval": "Update interval",
+          "providers": "Incident providers",
+          "routing": "Routing provider",
+          "osrm_url": "OSRM server URL"
+        },
+        "data_description": {
+          "corridor_radius": "How far from the route an incident may be and still count",
+          "update_interval": "How often the route corridor is checked",
+          "providers": "Sources of road incidents",
+          "routing": "Service used to resolve the route geometry",
+          "osrm_url": "Any OSRM server; the public demo instance needs no key"
+        }
+      }
+    }
+  },
+  "selector": {
+    "providers": {
+      "options": {
+        "dgt": "DGT (Spain, DATEX II)"
+      }
+    },
+    "routing": {
+      "options": {
+        "osrm": "OSRM (free, no API key)"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "closures": {
+        "name": "Route closures"
+      },
+      "incidents": {
+        "name": "Route incidents"
+      },
+      "worst_severity": {
+        "name": "Worst severity"
+      },
+      "affected_roads": {
+        "name": "Affected roads"
+      },
+      "route_distance": {
+        "name": "Route distance"
+      },
+      "route_duration": {
+        "name": "Route duration"
+      }
+    },
+    "binary_sensor": {
+      "route_blocked": {
+        "name": "Route blocked"
+      }
+    }
+  }
+}
