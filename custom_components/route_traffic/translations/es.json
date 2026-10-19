@@ -6,11 +6,13 @@
         "description": "Vigila las incidencias y cortes de carretera que caen sobre el corredor de una ruta. Usa una entidad como `zone.home` / `device_tracker.movil`, o un par `latitud,longitud`.",
         "data": {
           "origin": "Origen",
-          "destination": "Destino"
+          "destination": "Destino",
+          "routing": "Proveedor de rutas"
         },
         "data_description": {
           "origin": "Id de entidad (zone.home, device_tracker.movil) o `lat,lon`",
-          "destination": "Id de entidad (zone.trabajo, zone.mercadona) o `lat,lon`"
+          "destination": "Id de entidad (zone.trabajo, zone.mercadona) o `lat,lon`",
+          "routing": "Waze incluye tráfico en tiempo real; OSRM no tiene tráfico"
         }
       }
     },
@@ -50,7 +52,8 @@
     },
     "routing": {
       "options": {
-        "osrm": "OSRM (gratis, sin clave API)"
+        "waze": "Waze (tráfico en tiempo real)",
+        "osrm": "OSRM (sin tráfico, sin clave API)"
       }
     }
   },

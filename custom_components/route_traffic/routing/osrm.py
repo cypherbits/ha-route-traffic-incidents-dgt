@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import timedelta
 
 from aiohttp import ClientError, ClientSession
 
@@ -18,6 +19,7 @@ class OsrmRoutingProvider(RoutingProvider):
     """Resolve routes with an OSRM server."""
 
     name = "osrm"
+    route_cache_ttl = timedelta(hours=6)
 
     def __init__(self, base_url: str) -> None:
         """Initialize with the OSRM base URL."""

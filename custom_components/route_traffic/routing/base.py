@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import abc
+from datetime import timedelta
 
 from aiohttp import ClientSession
 
@@ -17,6 +18,7 @@ class RoutingProvider(abc.ABC):
     """Base class for routing providers."""
 
     name: str = ""
+    route_cache_ttl: timedelta = timedelta(0)
 
     @abc.abstractmethod
     async def async_get_route(

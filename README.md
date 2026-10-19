@@ -27,6 +27,8 @@ incident feed**.
 
 - **Route-aware**: only reports incidents within a configurable distance of the
   actual route polyline, so a closure 30 km away does not wake you up.
+- **Traffic-aware ETA**: Waze is the default routing provider and includes live
+  traffic; OSRM remains available as a free-flow alternative.
 - **Provider based**: incident sources are pluggable. Ships with the Spanish
   DGT DATEX II feed.
 - **Shared feed cache**: the DGT feed is several megabytes; it is downloaded
@@ -69,15 +71,16 @@ directory and restart.
 
 ## Configuration
 
-The setup asks for two values:
+The setup asks for three values:
 
 | Field | Example |
 |---|---|
 | Origin | `zone.home` or `38.7831,0.1522` |
 | Destination | `zone.work` or `device_tracker.phone` |
+| Routing provider | `waze` (default) or `osrm` |
 
-Both accept any entity with `latitude`/`longitude` attributes, or a literal
-coordinate pair.
+Origin and destination accept any entity with `latitude`/`longitude`
+attributes, or a literal coordinate pair.
 
 ### Options
 
@@ -86,9 +89,11 @@ coordinate pair.
 | Corridor radius | 300 m | How far from the route an incident may be and still count |
 | Update interval | 300 s | How often the corridor is checked |
 | Incident providers | `dgt` | Sources of road incidents |
-| Routing provider | `osrm` | Service used to resolve the route |
+| Routing provider | `waze` | Waze (live traffic) or OSRM (free-flow) |
 | OSRM server URL | `https://router.project-osrm.org` | Public demo or your own instance |
 
+> Waze uses an unofficial API without guarantees, so it can occasionally fail or
+> change. OSRM does not use live traffic: its duration is the free-flow estimate.
 > The public OSRM demo server is rate limited and meant for light use. For
 > frequent polling, self-host OSRM or point the integration at another instance.
 
@@ -121,9 +126,11 @@ own payload onto it.
 
 ## Data sources
 
-| Provider | Coverage | Key required |
+| Provider | Use | Key required |
 |---|---|---|
-| `dgt` | Spain — [NAP DATEX II](https://nap.dgt.es/) | No |
+| `waze` | Route geometry and traffic-aware ETA | No |
+| `osrm` | Route geometry and free-flow ETA | No |
+| `dgt` | Incidents — Spain, [NAP DATEX II](https://nap.dgt.es/) | No |
 
 ## Development
 

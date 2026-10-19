@@ -27,6 +27,7 @@ from .const import (
     DEFAULT_CORRIDOR_RADIUS,
     DEFAULT_OSRM_URL,
     DEFAULT_PROVIDERS,
+    DEFAULT_ROUTING,
     DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
     INCIDENT_PROVIDERS,
@@ -50,7 +51,7 @@ class RouteTrafficConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
-        """Ask for the origin and destination of the route."""
+        """Ask for the route and the routing provider."""
         errors: dict[str, str] = {}
 
         if user_input is not None:
@@ -72,7 +73,7 @@ class RouteTrafficConfigFlow(ConfigFlow, domain=DOMAIN):
                         CONF_CORRIDOR_RADIUS: DEFAULT_CORRIDOR_RADIUS,
                         CONF_UPDATE_INTERVAL: DEFAULT_UPDATE_INTERVAL,
                         CONF_PROVIDERS: DEFAULT_PROVIDERS,
-                        CONF_ROUTING: "osrm",
+                        CONF_ROUTING: user_input[CONF_ROUTING],
                         CONF_OSRM_URL: DEFAULT_OSRM_URL,
                     },
                 )
@@ -81,6 +82,15 @@ class RouteTrafficConfigFlow(ConfigFlow, domain=DOMAIN):
             {
                 vol.Required(CONF_ORIGIN): LOCATION_SELECTOR,
                 vol.Required(CONF_DESTINATION): LOCATION_SELECTOR,
+                vol.Required(
+                    CONF_ROUTING, default=DEFAULT_ROUTING
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=list(ROUTING_PROVIDERS),
+                        mode=selector.SelectSelectorMode.DROPDOWN,
+                        translation_key=CONF_ROUTING,
+                    )
+                ),
             }
         )
         return self.async_show_form(
@@ -164,7 +174,7 @@ class RouteTrafficOptionsFlow(OptionsFlow):
                 ),
                 vol.Optional(
                     CONF_ROUTING,
-                    default=options.get(CONF_ROUTING, "osrm"),
+                    default=options.get(CONF_ROUTING, DEFAULT_ROUTING),
                 ): selector.SelectSelector(
                     selector.SelectSelectorConfig(
                         options=list(ROUTING_PROVIDERS),

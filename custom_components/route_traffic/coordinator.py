@@ -21,6 +21,7 @@ from .const import (
     DEFAULT_CORRIDOR_RADIUS,
     DEFAULT_OSRM_URL,
     DEFAULT_PROVIDERS,
+    DEFAULT_ROUTING,
     DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
     SEVERITY_ORDER,
@@ -28,13 +29,9 @@ from .const import (
 from .geometry import RouteGeometry
 from .models import Incident, Route
 from .providers import PROVIDERS, IncidentError
-from .routing import OsrmRoutingProvider, RoutingError
+from .routing import RoutingError, create_routing_provider
 
 _LOGGER = logging.getLogger(__name__)
-
-#: How long a resolved route is reused before asking the routing provider
-#: again. Routes change rarely, incidents change constantly.
-ROUTE_CACHE_TTL = timedelta(hours=6)
 
 
 class RouteTrafficCoordinator(DataUpdateCoordinator[dict]):
@@ -57,11 +54,9 @@ class RouteTrafficCoordinator(DataUpdateCoordinator[dict]):
             PROVIDERS[name]() for name in provider_names if name in PROVIDERS
         ]
 
-        routing_name = options.get(CONF_ROUTING, "osrm")
-        if routing_name != "osrm":
-            raise ValueError(f"Unsupported routing provider: {routing_name}")
-        self.routing = OsrmRoutingProvider(
-            options.get(CONF_OSRM_URL, DEFAULT_OSRM_URL)
+        self.routing = create_routing_provider(
+            options.get(CONF_ROUTING, DEFAULT_ROUTING),
+            options.get(CONF_OSRM_URL, DEFAULT_OSRM_URL),
         )
 
         self._route: Route | None = None
@@ -155,7 +150,8 @@ class RouteTrafficCoordinator(DataUpdateCoordinator[dict]):
             self._route is not None
             and self._geometry is not None
             and self._route_fetched_at is not None
-            and now - self._route_fetched_at < ROUTE_CACHE_TTL.total_seconds()
+            and now - self._route_fetched_at
+            < self.routing.route_cache_ttl.total_seconds()
         ):
             return
 

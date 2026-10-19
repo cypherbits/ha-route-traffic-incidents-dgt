@@ -19,7 +19,7 @@ CONF_OSRM_URL: Final = "osrm_url"
 DEFAULT_NAME: Final = "Route"
 DEFAULT_CORRIDOR_RADIUS: Final = 300.0
 DEFAULT_UPDATE_INTERVAL: Final = 300
-DEFAULT_ROUTING: Final = "osrm"
+DEFAULT_ROUTING: Final = "waze"
 DEFAULT_OSRM_URL: Final = "https://router.project-osrm.org"
 DEFAULT_PROVIDERS: Final = ["dgt"]
 
@@ -34,7 +34,8 @@ INCIDENT_PROVIDERS: Final[dict[str, str]] = {
 }
 
 ROUTING_PROVIDERS: Final[dict[str, str]] = {
-    "osrm": "OSRM (free, no API key)",
+    "waze": "Waze (live traffic)",
+    "osrm": "OSRM (free-flow, no API key)",
 }
 
 SEVERITY_ORDER: Final[dict[str, int]] = {
