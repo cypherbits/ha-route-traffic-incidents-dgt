@@ -1,5 +1,9 @@
 # Route Traffic
 
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz)
+[![Validate](https://github.com/cypherbits/ha-route-traffic-incidents-dgt/actions/workflows/validate.yml/badge.svg)](https://github.com/cypherbits/ha-route-traffic-incidents-dgt/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A Home Assistant integration that tells you whether **the road you are about to
 drive is closed**.
 
@@ -51,9 +55,12 @@ and distance from the route.
 ### HACS
 
 1. HACS → ⋮ → **Custom repositories**
-2. Add this repository URL, category **Integration**
+2. Add `https://github.com/cypherbits/ha-route-traffic-incidents-dgt`, category **Integration**
 3. Install **Route Traffic** and restart Home Assistant
 4. **Settings → Devices & services → Add integration → Route Traffic**
+
+> HACS only accepts public repositories. You also need a GitHub release (or at
+> least a version in `manifest.json`) for HACS to detect updates.
 
 ### Manual
 
