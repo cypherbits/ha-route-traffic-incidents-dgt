@@ -1,7 +1,6 @@
 {
   "domain": "route_traffic",
   "name": "Route Traffic",
-  "categories": ["vehicles_transport"],
   "codeowners": ["@cypherbits"],
   "config_flow": true,
   "dependencies": ["http"],
